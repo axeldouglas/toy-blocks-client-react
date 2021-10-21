@@ -1,10 +1,14 @@
+import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
-import Root from "./components/Root";
-import "./styles/styles.css";
+import Routes from "./routes";
 
-const store = configureStore();
 function App() {
-  return <Root store={store} />;
+  const store = configureStore();
+  return (
+    <Provider store={store}>
+      <Routes />
+    </Provider>
+  );
 }
 
 export default App;
