@@ -63,4 +63,25 @@ describe("Actions", () => {
 
     expect(dispatch.mock.calls.flat()).toEqual(expected);
   });
+
+  it("should server reject the call to fetch the node status", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.reject({
+        status: 500,
+      })
+    );
+    await ActionCreators.checkNodeStatus(node)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.CHECK_NODE_STATUS_START,
+        node,
+      },
+      {
+        type: ActionTypes.CHECK_NODE_STATUS_FAILURE,
+        node,
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
 });

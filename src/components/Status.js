@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import colors from "../constants/colors";
 
-function Status({ online, loading }) {
+const Status = ({ online, loading }) => {
   const classes = useStyles({ online, loading });
   return (
     <Box display="flex" alignItems="center">
@@ -13,7 +13,7 @@ function Status({ online, loading }) {
       </Typography>
     </Box>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   dot: ({ online, loading }) => {
