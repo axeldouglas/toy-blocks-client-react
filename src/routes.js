@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Nodes from "./containers/Nodes";
 import NotFoundPage from "./components/NotFoundPage";
 
-function App() {
+function Routes() {
   return (
     <BrowserRouter>
       <Switch>
@@ -15,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;
