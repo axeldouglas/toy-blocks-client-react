@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles, Box } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import colors from "../constants/colors";
 
 function Status({ online, loading }) {
@@ -8,9 +8,9 @@ function Status({ online, loading }) {
   return (
     <Box display="flex" alignItems="center">
       <span className={classes.dot}></span>
-      <span className={classes.text}>
+      <Typography component="span" className={classes.text}>
         {loading ? "LOADING" : online ? "ONLINE" : "OFFLINE"}
-      </span>
+      </Typography>
     </Box>
   );
 }
@@ -25,18 +25,18 @@ const useStyles = makeStyles((theme) => ({
     return {
       borderRadius: "50%",
       display: "inline-block",
-      width: 5,
-      height: 5,
+      width: 6,
+      height: 6,
       backgroundColor: color,
     };
   },
   text: ({ online }) => ({
-    fontSize: theme.typography.pxToRem(14),
-    display: "block",
-    lineHeight: 1.5,
-    fontWeight: "400",
-    letterSpacing: 1,
-    paddingLeft: 5,
+    fontSize: theme.typography.pxToRem(10),
+    lineHeight: "16px",
+    fontStyle: "normal",
+    fontWeight: "500",
+    letterSpacing: "1.5px",
+    paddingLeft: 4,
     color: online ? colors.text : colors.faded,
   }),
 }));
