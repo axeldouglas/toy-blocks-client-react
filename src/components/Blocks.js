@@ -25,9 +25,7 @@ const Blocks = ({ node }) => {
 
   if (!node.blocks.length) {
     return (
-      <Box>
-        <Typography className={classes.notFound}>No results found</Typography>
-      </Box>
+      <Typography className={classes.notFound}>No results found</Typography>
     );
   }
 

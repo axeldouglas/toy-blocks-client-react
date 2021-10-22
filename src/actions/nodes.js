@@ -23,7 +23,52 @@ const checkNodeStatusFailure = (node) => {
   };
 };
 
-export function checkNodeStatus(node) {
+const getNodeBlocksStart = (node, res) => {
+  return {
+    type: types.GET_NODE_BLOCKS_START,
+    node,
+  };
+};
+
+const getNodeBlocksSuccess = (node, res) => {
+  return {
+    type: types.GET_NODE_BLOCKS_SUCCESS,
+    node,
+    res,
+  };
+};
+
+const getNodeBlocksFailure = (node) => {
+  return {
+    type: types.GET_NODE_BLOCKS_FAILURE,
+    node,
+  };
+};
+
+function getNodeBlocks(node) {
+  return async (dispatch) => {
+    if (node.online === true) {
+      try {
+        dispatch(getNodeBlocksStart(node));
+        const res = await fetch(`${node.url}/api/v1/blocks`);
+
+        if (res.status >= 400) {
+          dispatch(getNodeBlocksFailure(node));
+          return;
+        }
+
+        const json = await res.json();
+        dispatch(getNodeBlocksSuccess(node, json));
+      } catch (err) {
+        dispatch(getNodeBlocksFailure(node));
+      }
+    } else {
+      dispatch(getNodeBlocksFailure(node));
+    }
+  };
+}
+
+function checkNodeStatus(node) {
   return async (dispatch) => {
     try {
       dispatch(checkNodeStatusStart(node));
@@ -43,10 +88,12 @@ export function checkNodeStatus(node) {
   };
 }
 
-export function checkNodeStatuses(list) {
+function checkNodeStatuses(list) {
   return (dispatch) => {
     list.forEach((node) => {
       dispatch(checkNodeStatus(node));
     });
   };
 }
+
+export { checkNodeStatus, checkNodeStatuses, getNodeBlocks };

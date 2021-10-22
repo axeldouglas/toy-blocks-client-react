@@ -1,31 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Blocks /> should match empty data snapshot 1`] = `
-<div
-  className="MuiBox-root MuiBox-root-5"
+<p
+  className="MuiTypography-root makeStyles-notFound-3 MuiTypography-body1"
 >
-  <p
-    className="MuiTypography-root makeStyles-notFound-3 MuiTypography-body1"
-  >
-    No results found
-  </p>
-</div>
+  No results found
+</p>
 `;
 
 exports[`<Blocks /> should match snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-6 makeStyles-blockWrapper-1"
+  className="MuiBox-root MuiBox-root-5 makeStyles-blockWrapper-1"
 >
   <div
-    className="MuiBox-root MuiBox-root-10 makeStyles-blockContainer-7"
+    className="MuiBox-root MuiBox-root-9 makeStyles-blockContainer-6"
   >
     <p
-      className="MuiTypography-root makeStyles-blockTitle-8 MuiTypography-body1"
+      className="MuiTypography-root makeStyles-blockTitle-7 MuiTypography-body1"
     >
       005
     </p>
     <p
-      className="MuiTypography-root makeStyles-blockDescription-9 MuiTypography-body1"
+      className="MuiTypography-root makeStyles-blockDescription-8 MuiTypography-body1"
     >
       The Human
     </p>

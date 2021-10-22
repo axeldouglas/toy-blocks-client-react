@@ -18,6 +18,12 @@ describe("Actions", () => {
     name: null,
   };
 
+  const nodeOnline = {
+    url: "http://localhost:3002",
+    online: true,
+    name: null,
+  };
+
   it("should fetch the node status", async () => {
     mockFetch.mockReturnValueOnce(
       Promise.resolve({
@@ -79,6 +85,90 @@ describe("Actions", () => {
       {
         type: ActionTypes.CHECK_NODE_STATUS_FAILURE,
         node,
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fetch the node blocks", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        status: 200,
+        json() {
+          return Promise.resolve({ data: [{ id: 1 }] });
+        },
+      })
+    );
+    await ActionCreators.getNodeBlocks(nodeOnline)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_START,
+        node: nodeOnline,
+      },
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_SUCCESS,
+        node: nodeOnline,
+        res: { data: [{ id: 1 }] },
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fail to fetch the node blocks", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        status: 400,
+      })
+    );
+    await ActionCreators.getNodeBlocks(node)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_FAILURE,
+        node,
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fail to fetch the node blocks even server is online", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        status: 400,
+      })
+    );
+    await ActionCreators.getNodeBlocks(nodeOnline)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_START,
+        node: nodeOnline,
+      },
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_FAILURE,
+        node: nodeOnline,
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should server reject the call to fetch the node blocks", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.reject({
+        status: 500,
+      })
+    );
+    await ActionCreators.getNodeBlocks(nodeOnline)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_START,
+        node: nodeOnline,
+      },
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_FAILURE,
+        node: nodeOnline,
       },
     ];
 

@@ -1,8 +1,4 @@
-import {
-  CHECK_NODE_STATUS_START,
-  CHECK_NODE_STATUS_SUCCESS,
-  CHECK_NODE_STATUS_FAILURE,
-} from "../constants/actionTypes";
+import * as actionTypes from "../constants/actionTypes";
 import initialState from "./initialState";
 
 export default function nodesReducer(state = initialState().nodes, action) {
@@ -19,7 +15,12 @@ export default function nodesReducer(state = initialState().nodes, action) {
         ...node,
         online: data.online !== undefined ? data.online : node.online,
         name: data.name !== undefined ? data.name : node.name,
-        loading: data.loading,
+        loading: data.loading !== undefined ? data.loading : node.loading,
+        loadingBlocks:
+          data.loadingBlocks !== undefined
+            ? data.loadingBlocks
+            : node.loadingBlocks,
+        blocks: data.blocks !== undefined ? data.blocks : node.blocks,
       };
       listCopy[nodeIndex] = newData;
     }
@@ -28,13 +29,13 @@ export default function nodesReducer(state = initialState().nodes, action) {
   };
 
   switch (action.type) {
-    case CHECK_NODE_STATUS_START:
+    case actionTypes.CHECK_NODE_STATUS_START:
       list = prepareData({ loading: true });
       return {
         ...state,
         list,
       };
-    case CHECK_NODE_STATUS_SUCCESS:
+    case actionTypes.CHECK_NODE_STATUS_SUCCESS:
       list = prepareData({
         online: true,
         name: action.res.node_name,
@@ -44,10 +45,34 @@ export default function nodesReducer(state = initialState().nodes, action) {
         ...state,
         list,
       };
-    case CHECK_NODE_STATUS_FAILURE:
+    case actionTypes.CHECK_NODE_STATUS_FAILURE:
       list = prepareData({
         online: false,
         loading: false,
+      });
+      return {
+        ...state,
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_START:
+      list = prepareData({ loadingBlocks: true });
+      return {
+        ...state,
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_SUCCESS:
+      list = prepareData({
+        loadingBlocks: false,
+        blocks: action.res.data,
+      });
+      return {
+        ...state,
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_FAILURE:
+      list = prepareData({
+        loadingBlocks: false,
+        blocks: [],
       });
       return {
         ...state,

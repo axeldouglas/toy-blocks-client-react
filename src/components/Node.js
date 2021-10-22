@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   Accordion,
@@ -9,11 +10,22 @@ import {
   makeStyles,
   Box,
 } from "@material-ui/core";
+import * as actions from "../actions/nodes";
 import colors from "../constants/colors";
 import Status from "./Status";
+import Blocks from "./Blocks";
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (expanded) {
+      dispatch(actions.getNodeBlocks(node));
+    }
+    //eslint-disable-next-line
+  }, [expanded]);
+
   return (
     <Accordion
       elevation={3}
@@ -45,7 +57,7 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
-        <Typography>Blocks go here</Typography>
+        <Blocks node={node} />
       </AccordionDetails>
     </Accordion>
   );
