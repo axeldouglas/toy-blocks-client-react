@@ -1,13 +1,16 @@
 const colors = {
   text: "#263238",
-  faded: "#8a9094",
-  primary: "#5bb7db",
-  danger: "#D94238",
+  faded: "#9EA7BA",
+  iconsColor: "#979797",
+  primary: "#304FFE",
+  danger: "#EB5757",
   warning: "#f4c20d",
-  success: "#1E9A57",
+  success: "#18CC55",
   contentBackground: "#f8f8f8",
   border: "#aaaaaa",
   white: "#ffffff",
+  black: "#000000",
+  disabled: "rgba(0, 0, 0, 0.12)",
 };
 
 export default colors;

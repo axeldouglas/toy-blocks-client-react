@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   Accordion,
@@ -9,11 +10,22 @@ import {
   makeStyles,
   Box,
 } from "@material-ui/core";
+import * as actions from "../actions/nodes";
 import colors from "../constants/colors";
 import Status from "./Status";
+import Blocks from "./Blocks";
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (expanded) {
+      dispatch(actions.getNodeBlocks(node));
+    }
+    //eslint-disable-next-line
+  }, [expanded]);
+
   return (
     <Accordion
       elevation={3}
@@ -26,7 +38,6 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         classes={{
           expandIcon: classes.icon,
           content: classes.content,
-          expanded: classes.expanded,
         }}
         expandIcon={<ExpandMoreIcon />}
       >
@@ -45,8 +56,8 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
           <Status loading={node.loading} online={node.online} />
         </Box>
       </AccordionSummary>
-      <AccordionDetails>
-        <Typography>Blocks go here</Typography>
+      <AccordionDetails className={classes.details}>
+        <Blocks node={node} />
       </AccordionDetails>
     </Accordion>
   );
@@ -54,14 +65,15 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "16px 0",
+    margin: "12px 0 !important",
     boxShadow: "0px 3px 6px 1px rgba(0,0,0,0.15)",
     "&:before": {
       backgroundColor: "unset",
     },
+    borderRadius: "3px",
   },
   summary: {
-    padding: "0 24px",
+    padding: "0 30px 0 20px",
   },
   summaryContent: {
     display: "flex",
@@ -69,32 +81,34 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    paddingRight: 20,
+    paddingRight: 6,
   },
   icon: {
-    color: colors.faded,
+    color: colors.iconsColor,
   },
   content: {
-    margin: "10px 0 !important", // Avoid change of sizing on expanded
-  },
-  expanded: {
-    "& $icon": {
-      paddingLeft: 0,
-      paddingRight: 12,
-      top: -10,
-      marginRight: 0,
-    },
+    margin: "14px 0 !important", // Avoid change of sizing on expanded
   },
   heading: {
-    fontSize: theme.typography.pxToRem(17),
-    display: "block",
+    fontSize: theme.typography.pxToRem(16),
+    fontStyle: "normal",
+    fontWeight: "normal",
     color: colors.text,
-    lineHeight: 1.5,
+    lineHeight: "24px",
+    letterSpacing: "0.44px",
+    marginBottom: "4px",
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(14),
-    color: colors.faded,
-    lineHeight: 2,
+    fontStyle: "normal",
+    fontWeight: "normal",
+    color: colors.text,
+    lineHeight: "20px",
+    letterSpacing: "0.25px",
+    opacity: 0.54,
+  },
+  details: {
+    padding: "0px 14px 14px 14px",
   },
 }));
 

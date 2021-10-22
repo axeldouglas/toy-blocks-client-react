@@ -6,14 +6,14 @@ exports[`<Nodes /> should match snapshot 1`] = `
 >
   <h1
     className="MuiTypography-root MuiTypography-h4"
-  >
-    <strong
-      style={
-        Object {
-          "color": "#000",
-        }
+    style={
+      Object {
+        "color": "#000000",
+        "paddingBottom": "4px",
       }
-    >
+    }
+  >
+    <strong>
       Nodes
     </strong>
   </h1>
@@ -49,12 +49,12 @@ exports[`<Nodes /> should match snapshot 1`] = `
             className="MuiBox-root MuiBox-root-11"
           >
             <h5
-              className="MuiTypography-root makeStyles-heading-8 MuiTypography-h5"
+              className="MuiTypography-root makeStyles-heading-7 MuiTypography-h5"
             >
               Node 1
             </h5>
             <h6
-              className="MuiTypography-root makeStyles-secondaryHeading-9 MuiTypography-subtitle1"
+              className="MuiTypography-root makeStyles-secondaryHeading-8 MuiTypography-subtitle1"
             >
               https://thawing-springs-53971.herokuapp.com
             </h6>
@@ -66,7 +66,7 @@ exports[`<Nodes /> should match snapshot 1`] = `
               className="makeStyles-dot-12 makeStyles-dot-14"
             />
             <span
-              className="makeStyles-text-13 makeStyles-text-15"
+              className="MuiTypography-root makeStyles-text-13 makeStyles-text-15 MuiTypography-body1"
             >
               OFFLINE
             </span>
@@ -108,7 +108,7 @@ exports[`<Nodes /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      className="MuiCollapse-container MuiCollapse-hidden"
+      className="MuiCollapse-root MuiCollapse-hidden"
       style={
         Object {
           "minHeight": "0px",
@@ -125,13 +125,26 @@ exports[`<Nodes /> should match snapshot 1`] = `
             role="region"
           >
             <div
-              className="MuiAccordionDetails-root"
+              className="MuiAccordionDetails-root makeStyles-details-9"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1"
+              <div
+                className="MuiBox-root MuiBox-root-20 makeStyles-blockWrapper-17"
               >
-                Blocks go here
-              </p>
+                <div
+                  className="MuiBox-root MuiBox-root-24 makeStyles-blockContainer-21"
+                >
+                  <p
+                    className="MuiTypography-root makeStyles-blockTitle-22 MuiTypography-body1"
+                  >
+                    005
+                  </p>
+                  <p
+                    className="MuiTypography-root makeStyles-blockDescription-23 MuiTypography-body1"
+                  >
+                    The Human
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -164,30 +177,30 @@ exports[`<Nodes /> should match snapshot 1`] = `
         className="MuiAccordionSummary-content makeStyles-content-6"
       >
         <div
-          className="MuiBox-root MuiBox-root-17 makeStyles-summaryContent-4"
+          className="MuiBox-root MuiBox-root-25 makeStyles-summaryContent-4"
         >
           <div
-            className="MuiBox-root MuiBox-root-18"
+            className="MuiBox-root MuiBox-root-26"
           >
             <h5
-              className="MuiTypography-root makeStyles-heading-8 MuiTypography-h5"
+              className="MuiTypography-root makeStyles-heading-7 MuiTypography-h5"
             >
               Node 2
             </h5>
             <h6
-              className="MuiTypography-root makeStyles-secondaryHeading-9 MuiTypography-subtitle1"
+              className="MuiTypography-root makeStyles-secondaryHeading-8 MuiTypography-subtitle1"
             >
               https://secret-lowlands-62331.herokuapp.com
             </h6>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-21"
+            className="MuiBox-root MuiBox-root-29"
           >
             <span
-              className="makeStyles-dot-12 makeStyles-dot-19"
+              className="makeStyles-dot-12 makeStyles-dot-27"
             />
             <span
-              className="makeStyles-text-13 makeStyles-text-20"
+              className="MuiTypography-root makeStyles-text-13 makeStyles-text-28 MuiTypography-body1"
             >
               OFFLINE
             </span>
@@ -229,7 +242,7 @@ exports[`<Nodes /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      className="MuiCollapse-container MuiCollapse-hidden"
+      className="MuiCollapse-root MuiCollapse-hidden"
       style={
         Object {
           "minHeight": "0px",
@@ -246,13 +259,26 @@ exports[`<Nodes /> should match snapshot 1`] = `
             role="region"
           >
             <div
-              className="MuiAccordionDetails-root"
+              className="MuiAccordionDetails-root makeStyles-details-9"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1"
+              <div
+                className="MuiBox-root MuiBox-root-30 makeStyles-blockWrapper-17"
               >
-                Blocks go here
-              </p>
+                <div
+                  className="MuiBox-root MuiBox-root-31 makeStyles-blockContainer-21"
+                >
+                  <p
+                    className="MuiTypography-root makeStyles-blockTitle-22 MuiTypography-body1"
+                  >
+                    005
+                  </p>
+                  <p
+                    className="MuiTypography-root makeStyles-blockDescription-23 MuiTypography-body1"
+                  >
+                    The Human
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

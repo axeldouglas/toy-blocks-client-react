@@ -1,62 +1,82 @@
-import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../constants/actionTypes';
-import initialState from './initialState';
+import * as actionTypes from "../constants/actionTypes";
+import initialState from "./initialState";
 
 export default function nodesReducer(state = initialState().nodes, action) {
-  let list, nodeIndex;
+  let list;
+
+  const prepareData = (data) => {
+    const listCopy = state.list.slice();
+
+    const nodeIndex = listCopy.findIndex((p) => p.url === action.node.url);
+
+    if (nodeIndex >= 0) {
+      const node = listCopy[nodeIndex];
+      const newData = {
+        ...node,
+        online: data.online !== undefined ? data.online : node.online,
+        name: data.name !== undefined ? data.name : node.name,
+        loading: data.loading !== undefined ? data.loading : node.loading,
+        loadingBlocks:
+          data.loadingBlocks !== undefined
+            ? data.loadingBlocks
+            : node.loadingBlocks,
+        blocks: data.blocks !== undefined ? data.blocks : node.blocks,
+      };
+      listCopy[nodeIndex] = newData;
+    }
+
+    return listCopy;
+  };
+
   switch (action.type) {
-    case CHECK_NODE_STATUS_START:
-      list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            loading: true
-          },
-          ...state.list.slice(nodeIndex + 1)
-        ];
-      }
+    case actionTypes.CHECK_NODE_STATUS_START:
+      list = prepareData({ loading: true });
       return {
         ...state,
-        list
+        list,
       };
-    case CHECK_NODE_STATUS_SUCCESS:
-      list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            online: true,
-            name: action.res.node_name,
-            loading: false
-          },
-          ...state.list.slice(nodeIndex + 1)
-        ];
-      }
+    case actionTypes.CHECK_NODE_STATUS_SUCCESS:
+      list = prepareData({
+        online: true,
+        name: action.res.node_name,
+        loading: false,
+      });
       return {
         ...state,
-        list
+        list,
       };
-    case CHECK_NODE_STATUS_FAILURE:
-      list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            online: false,
-            loading: false
-          },
-          ...state.list.slice(nodeIndex + 1)
-        ];
-      }
+    case actionTypes.CHECK_NODE_STATUS_FAILURE:
+      list = prepareData({
+        online: false,
+        loading: false,
+      });
       return {
         ...state,
-        list
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_START:
+      list = prepareData({ loadingBlocks: true });
+      return {
+        ...state,
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_SUCCESS:
+      list = prepareData({
+        loadingBlocks: false,
+        blocks: action.res.data,
+      });
+      return {
+        ...state,
+        list,
+      };
+    case actionTypes.GET_NODE_BLOCKS_FAILURE:
+      list = prepareData({
+        loadingBlocks: false,
+        blocks: [],
+      });
+      return {
+        ...state,
+        list,
       };
     default:
       return state;
